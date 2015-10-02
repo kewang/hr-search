@@ -1,0 +1,8 @@
+{
+  "name": "HR-search",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~1.10.2"
+  }
+}
