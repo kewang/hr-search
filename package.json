@@ -1,14 +1,15 @@
 {
   "name": "hr-search",
-  "version": "0.0.0",
   "description": "HR Search",
-  "main": "index.js",
-  "dependencies": {
-    "mailparser": "latest"
-  },
+  "version": "0.0.1",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "express": "3.4.8",
+    "jade": "*",
+    "mailparser": "*"
+  },
+  "author": "kewang",
+  "license": "Apache 2.0"
 }
