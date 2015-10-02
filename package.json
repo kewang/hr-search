@@ -1,0 +1,14 @@
+{
+  "name": "hr-search",
+  "version": "0.0.0",
+  "description": "HR Search",
+  "main": "index.js",
+  "dependencies": {
+    "mailparser": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
