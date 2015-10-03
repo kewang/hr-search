@@ -8,7 +8,8 @@
   "dependencies": {
     "express": "3.4.8",
     "jade": "*",
-    "mailparser": "*"
+    "mailparser": "*",
+    "multer": "^1.0.5"
   },
   "author": "kewang",
   "license": "Apache 2.0"
