@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var multer = require("multer");
 
 var app = express();
 
@@ -22,6 +23,9 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(multer({
+  dest: "upload"
+}));
 
 // development only
 if ('development' == app.get('env')) {
@@ -29,6 +33,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.post("/upload", routes.upload);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
