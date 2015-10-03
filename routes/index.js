@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var multer = require('multer')
+var multer = require('multer');
 var upload = multer({
   dest: 'uploads/'
 });
@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post("/upload", function(req, res, next) {
+router.post("/upload", upload.single("email"), function(req, res, next) {
   console.log(req.file);
   res.end();
 });
