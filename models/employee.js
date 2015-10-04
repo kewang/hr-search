@@ -7,6 +7,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING
+    },
+    email: {
+      type: DataTypes.STRING
     }
   }, {
     freezeTableName: true,

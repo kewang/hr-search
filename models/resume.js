@@ -4,6 +4,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
+    },
+    content: {
+      type: DataTypes.TEXT
     }
   }, {
     freezeTableName: true
