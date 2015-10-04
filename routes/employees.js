@@ -15,10 +15,14 @@ router.get('/', function(req, res, next) {
 
 router.get("/:id", function(req, res, next) {
   Employee.findById(req.params.id).then(function(employee){
-    console.log(JSON.stringify(employee));
-
+    return [
+      employee,
+      Resume.findById(employee.newestResumeId)
+    ];
+  }).spread(function(employee, resume){
     res.render("employees/show", {
-      employee: employee
+      employee: employee,
+      resume: resume
     });
   });
 });

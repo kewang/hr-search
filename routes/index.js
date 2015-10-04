@@ -12,9 +12,12 @@ var models = require("../models");
 var Employee = models.Employee;
 var Resume = models.Resume;
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Employee.findAll().then(function(employees){
+    res.render("index", {
+      employees: employees
+    });
+  });
 });
 
 router.post("/upload", upload.single("email"), function(req, res, next) {

@@ -11,11 +11,12 @@ block content
     table.table
       tr
         th ID
-        th Subject
-        th Date
+        th Name
+        th Email
         th Favorite Counts
-      tr
-        td 10
-        td This is a test
-        td 2015/1/5
-        td 71
+      each employee in employees
+        tr
+          td= employee.id
+          td= employee.name
+          td= employee.email
+          td 71
