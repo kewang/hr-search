@@ -10,6 +10,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING
+    },
+    newestResumeId: {
+      type: DataTypes.INTEGER
     }
   }, {
     freezeTableName: true,
