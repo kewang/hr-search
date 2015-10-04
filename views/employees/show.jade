@@ -7,3 +7,7 @@ block content
     .panel.panel-default
       .panel-heading Resume
       .panel-body !{resume.content}
+
+block nav-content
+  form(action="/employees/#{employee.id}/like", method="post")
+    input.btn.btn-success.navbar-btn.pull-right(type="submit", value="Like")
