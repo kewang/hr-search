@@ -6,7 +6,6 @@ var upload = multer({
 });
 var MailParser = require("mailparser").MailParser;
 var fs = require("fs");
-var mailparser = new MailParser();
 var cheerio = require("cheerio");
 var models = require("../models");
 var Employee = models.Employee;
@@ -21,9 +20,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/upload", upload.single("email"), function(req, res, next) {
+  var mailparser = new MailParser();
+
   mailparser.on("end", function(mail){
     var $ = cheerio.load(mail.html);
-
     var name = $("strong > a > span").text();
     var email = $("tr:nth-child(6) > td:nth-child(2) > font > a").text();
     var content = $("body").html();
@@ -33,8 +33,6 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
         email: email
       }
     }).then(function(employee){
-      console.log("employee: " + JSON.stringify(employee));
-
       if(employee){
         return employee;
       }else{
@@ -56,7 +54,7 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
         newestResumeId: resume.id
       });
     }).then(function(employee){
-      return res.redirect("/employees/" + employee.id);
+      res.redirect("/employees/" + employee.id);
     });
   });
 
