@@ -33,6 +33,8 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
         email: email
       }
     }).then(function(employee){
+      console.log("employee: " + JSON.stringify(employee));
+
       if(employee){
         return employee;
       }else{
