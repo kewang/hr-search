@@ -13,12 +13,17 @@ module.exports = function(sequelize, DataTypes) {
     },
     newestResumeId: {
       type: DataTypes.INTEGER
+    },
+    newestResumeDate: {
+      type: DataTypes.DATE
     }
   }, {
     freezeTableName: true,
     classMethods: {
       associate: function(models) {
-        Employee.hasMany(models.Resume);
+        Employee.hasMany(models.Resume, {
+          foreignKey: "employeeId"
+        });
       }
     }
   });

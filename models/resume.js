@@ -7,6 +7,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     content: {
       type: DataTypes.TEXT
+    },
+    receiveAt: {
+      type: DataTypes.DATE
     }
   }, {
     freezeTableName: true

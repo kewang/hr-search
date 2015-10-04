@@ -10,14 +10,14 @@ block content
           input.btn.btn-primary(type="submit", value="Upload")
     table.table
       tr
-        th ID
         th Name
         th Email
+        th Date
         th Favorite Counts
       each employee in employees
         tr
-          td= employee.id
           td
             a(href="/employees/#{employee.id}")= employee.name
           td= employee.email
+          td= employee.newestResumeDate
           td 71

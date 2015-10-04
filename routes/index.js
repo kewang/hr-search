@@ -27,10 +27,12 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
   var mailparser = new MailParser();
 
   mailparser.on("end", function(mail){
+
     var $ = cheerio.load(mail.html);
     var name = $("strong > a > span").text();
     var email = $("tr:nth-child(6) > td:nth-child(2) > font > a").text();
     var content = $("body").html();
+    var date = mail.date;
 
     Employee.findOne({
       where: {
@@ -50,12 +52,14 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
         employee,
         Resume.create({
           content: content,
-          EmployeeId: employee.id
+          employeeId: employee.id,
+          receiveAt: date
         })
       ];
     }).spread(function(employee, resume){
       return employee.update({
-        newestResumeId: resume.id
+        newestResumeId: resume.id,
+        newestResumeDate: resume.receiveAt
       });
     }).then(function(employee){
       res.redirect("/employees/" + employee.id);
