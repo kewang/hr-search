@@ -12,7 +12,11 @@ var Employee = models.Employee;
 var Resume = models.Resume;
 
 router.get('/', function(req, res, next) {
-  Employee.findAll().then(function(employees){
+  Employee.findAll({
+    order: [
+      ["id", "desc"]
+    ]
+  }).then(function(employees){
     res.render("index", {
       employees: employees
     });

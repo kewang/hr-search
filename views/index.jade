@@ -17,6 +17,7 @@ block content
       each employee in employees
         tr
           td= employee.id
-          td= employee.name
+          td
+            a(href="/employees/#{employee.id}")= employee.name
           td= employee.email
           td 71
