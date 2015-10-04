@@ -52,15 +52,11 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
         })
       ];
     }).spread(function(employee, resume){
-      return Employee.update({
+      return employee.update({
         newestResumeId: resume.id
-      }, {
-        where: {
-          id: employee.id
-        }
       });
-    }).then(function(id){
-      res.redirect("/employees/" + id);
+    }).then(function(employee){
+      return res.redirect("/employees/" + employee.id);
     });
   });
 
