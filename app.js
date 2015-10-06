@@ -4,9 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var bcrypt = require('bcrypt-nodejs');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
 var employees = require('./routes/employees');
+
+var models = require("./models");
+var User = models.User;
 
 var app = express();
 
@@ -21,6 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'hr-search'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/employees', employees);
@@ -56,5 +66,36 @@ app.use(function(err, req, res, next) {
   });
 });
 
+passport.use(new LocalStrategy(function(username, password, done) {
+  User.findOne({
+    where: {
+      username: username
+    }
+  }).then(function(user) {
+    if (!user) {
+      return done(null, false, {message: 'Invalid username or password'});
+    }
+
+    if (!bcrypt.compareSync(password, user.password)) {
+      return done(null, false, {message: 'Invalid username or password'});
+    } else {
+      return done(null, user);
+    }
+  });
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.username);
+});
+
+passport.deserializeUser(function(username, done) {
+  User.findOne({
+    where: {
+      username: username
+    }
+  }).then(function(user) {
+    done(null, user);
+  });
+});
 
 module.exports = app;
