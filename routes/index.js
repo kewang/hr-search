@@ -9,9 +9,12 @@ var fs = require("fs");
 var path = require("path");
 var cheerio = require("cheerio");
 var AdmZip = require("adm-zip");
+var bcrypt = require("bcrypt-nodejs");
+var passport = require("passport");
 var models = require("../models");
 var Employee = models.Employee;
 var Resume = models.Resume;
+var User = models.User;
 
 router.get('/', function(req, res, next) {
   Employee.findAll({
@@ -65,13 +68,45 @@ router.post("/login", function(req, res, next) {
     }
 
     return req.logIn(user, function(err){
-      if(err) {
+      if (err) {
         return res.render("/login", {title: 'Sign In', errorMessage: err.message});
       } else {
         return res.redirect('/');
       }
     });
   })(req, res, next);
+});
+
+router.get("/signup", function(req, res, next) {
+  res.render("signup");
+});
+
+router.post("/signup", function(req, res, next) {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(function(user) {
+    if (user) {
+      return res.render('signup', {title: 'Sign Up', errorMessage: 'username already exists'});
+    }
+
+    var password = req.body.password;
+    var hash = bcrypt.hashSync(password);
+
+    return User.create({
+      username: req.body.username,
+      password: hash
+    });
+  }).then(function(user) {
+    return req.logIn(user, function(err){
+      if (err) {
+        return res.render("/login", {title: 'Sign In', errorMessage: err.message});
+      } else {
+        return res.redirect('/');
+      }
+    });
+  });
 });
 
 function storeEmailToDatabase(path, callback){

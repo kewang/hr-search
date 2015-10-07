@@ -8,6 +8,27 @@ block content
       .panel-heading Resume
       .panel-body !{resume.content}
 
+    #like-modal.modal.fadeid(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
+      .modal-dialog(role="document")
+        form.modal-content
+          .modal-header
+            button.close(type="button", data-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true") &times;
+            h4#myModalLabel.modal-title Some comment
+          .modal-body
+            if !auth
+              .form-group
+                label(for="username") Username
+                input.form-control(type="text", name="username", id="username", placeholder="Username", required="true")
+              .form-group
+                label(for="password") Password
+                input.form-control(type="password", name="password", id="password", placeholder="password", required="true")
+            .form-group
+              label(for="txtContent") Content
+              textarea.form-control(rows="5")
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Close
+            input.btn.btn-primary(type="submit", value="Submit")
+
 block nav-content
-  form(action="/employees/#{employee.id}/like", method="post")
-    input.btn.btn-success.navbar-btn.pull-right(type="submit", value="Like")
+  a.btn.btn-success.navbar-btn.pull-right(data-toggle="modal", data-target="#like-modal") Like
