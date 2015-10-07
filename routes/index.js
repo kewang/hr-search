@@ -47,6 +47,33 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
   }
 });
 
+router.get("/login", function(req, res, next) {
+  res.render("login");
+});
+
+router.post("/login", function(req, res, next) {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  }, function(err, user, info) {
+    if(err) {
+      return res.render("/login", {title: 'Sign In', errorMessage: err.message});
+    }
+
+    if(!user) {
+      return res.render("/login", {title: 'Sign In', errorMessage: err.message});
+    }
+
+    return req.logIn(user, function(err){
+      if(err) {
+        return res.render("/login", {title: 'Sign In', errorMessage: err.message});
+      } else {
+        return res.redirect('/');
+      }
+    });
+  })(req, res, next);
+});
+
 function storeEmailToDatabase(path, callback){
   var mailparser = new MailParser();
 

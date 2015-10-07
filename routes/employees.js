@@ -18,4 +18,13 @@ router.get("/:id", function(req, res, next) {
   });
 });
 
+router.post("/:id/like", function(req, res, next) {
+  if(!req.isAuthenticated()){
+    return res.redirect("/login");
+  }
+
+  res.send("test");
+  res.end();
+});
+
 module.exports = router;
