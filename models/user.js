@@ -12,7 +12,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function(models) {
+        User.hasMany(models.Comment, {
+          foreignKey: "userId"
+        });
+      }
+    }
   });
 
   return User;

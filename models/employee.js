@@ -24,6 +24,9 @@ module.exports = function(sequelize, DataTypes) {
         Employee.hasMany(models.Resume, {
           foreignKey: "employeeId"
         });
+        Employee.hasOne(models.Comment, {
+          foreignKey: "employeeId"
+        });
       }
     }
   });
