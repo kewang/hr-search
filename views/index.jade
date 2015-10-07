@@ -13,11 +13,11 @@ block content
         th Name
         th Email
         th Date
-        th Favorite Counts
+        th Like Counts
       each employee in employees
         tr
           td
             a(href="/employees/#{employee.id}")= employee.name
           td= employee.email
           td= employee.newestResumeDate
-          td 71
+          td= employee.likes

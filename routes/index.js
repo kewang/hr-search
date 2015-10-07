@@ -67,7 +67,7 @@ router.post("/login", function(req, res, next) {
       return res.render("/login", {title: 'Sign In', errorMessage: err.message});
     }
 
-    return req.logIn(user, function(err){
+    return req.login(user, function(err){
       if (err) {
         return res.render("/login", {title: 'Sign In', errorMessage: err.message});
       } else {
@@ -99,7 +99,7 @@ router.post("/signup", function(req, res, next) {
       password: hash
     });
   }).then(function(user) {
-    return req.logIn(user, function(err){
+    return req.login(user, function(err){
       if (err) {
         return res.render("/login", {title: 'Sign In', errorMessage: err.message});
       } else {
