@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING
     },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     newestResumeId: {
       type: DataTypes.INTEGER
     },
