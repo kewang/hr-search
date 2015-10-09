@@ -13,8 +13,11 @@ block content
         ul.list-group
           each comment in comments
             li.list-group-item
-              h4.list-group-item-heading= comment.id
-              p.list-group-item-text= comment.content
+              h4.list-group-item-heading= comment.User.username
+              p.list-group-item-text
+                blockquote
+                  = comment.content
+                  footer= comment.createdAt
 
     #like-modal.modal.fadeid(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
       .modal-dialog(role="document")

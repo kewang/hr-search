@@ -5,12 +5,17 @@ var models = require("../models");
 var Employee = models.Employee;
 var Resume = models.Resume;
 var Comment = models.Comment;
+var User = models.User;
 
 router.get("/:id", function(req, res, next) {
   Employee.findById(req.params.id).then(function(employee){
     return [
       employee,
-      employee.getComments(),
+      employee.getComments({
+        include: [{
+          model: User
+        }]
+      }),
       employee.getNewestResume()
     ];
   }).spread(function(employee, comments, resume){

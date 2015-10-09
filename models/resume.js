@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     content: {
       type: DataTypes.TEXT
     },
-    receiveAt: {
+    receivedAt: {
       type: DataTypes.DATE
     }
   }, {
