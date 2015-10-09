@@ -12,7 +12,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function(models) {
+        Resume.belongsTo(models.Employee, {
+          as: "employee"
+        });
+      }
+    }
   });
 
   return Resume;

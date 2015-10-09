@@ -12,7 +12,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: function(models) {
+        Comment.belongsTo(models.Employee, {
+          as: "employee"
+        });
+
+        Comment.belongsTo(models.User, {
+          as: "user"
+        });
+      }
+    }
   });
 
   return Comment;
