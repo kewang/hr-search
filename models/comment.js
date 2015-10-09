@@ -16,11 +16,11 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Comment.belongsTo(models.Employee, {
-          as: "employee"
+          foreignKey: "employeeId"
         });
 
         Comment.belongsTo(models.User, {
-          as: "user"
+          foreignKey: "userId"
         });
       }
     }

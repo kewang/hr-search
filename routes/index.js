@@ -47,6 +47,8 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
     files.forEach(function(file){
       storeEmailToDatabase(path.join(directory, file));
     });
+
+    res.redirect(req.headers.referer);
   }
 });
 

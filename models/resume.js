@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Resume.belongsTo(models.Employee, {
-          as: "employee"
+          foreignKey: "employeeId"
         });
       }
     }

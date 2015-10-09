@@ -10,11 +10,13 @@ router.get("/:id", function(req, res, next) {
   Employee.findById(req.params.id).then(function(employee){
     return [
       employee,
-      Resume.findById(employee.newestResumeId)
+      employee.getComments(),
+      employee.getNewestResume()
     ];
-  }).spread(function(employee, resume){
+  }).spread(function(employee, comments, resume){
     res.render("employees/show", {
       employee: employee,
+      comments: comments,
       resume: resume,
       auth: req.isAuthenticated()
     });
@@ -58,7 +60,7 @@ function createComment(req, res) {
   }).then(function(employee){
     return employee.increment("likes");
   }).then(function(employee){
-    res.redirect("/");
+    res.redirect(req.headers.referer);
   });
 }
 

@@ -14,12 +14,6 @@ module.exports = function(sequelize, DataTypes) {
     likes: {
       type: DataTypes.INTEGER,
       defaultValue: 0
-    },
-    newestResumeId: {
-      type: DataTypes.INTEGER
-    },
-    newestResumeDate: {
-      type: DataTypes.DATE
     }
   }, {
     freezeTableName: true,
@@ -31,6 +25,12 @@ module.exports = function(sequelize, DataTypes) {
         
         Employee.hasMany(models.Comment, {
           foreignKey: "employeeId"
+        });
+
+        Employee.belongsTo(models.Resume, {
+          as: "NewestResume",
+          foreignKey: "newestResumeId",
+          constraints: false
         });
       }
     }
