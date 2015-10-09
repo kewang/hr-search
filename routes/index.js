@@ -140,13 +140,12 @@ function storeEmailToDatabase(path, callback){
         Resume.create({
           content: content,
           employeeId: employee.id,
-          receiveAt: date
+          receivedAt: date
         })
       ];
     }).spread(function(employee, resume){
       return employee.update({
-        newestResumeId: resume.id,
-        newestResumeDate: resume.receiveAt
+        newestResumeId: resume.id
       });
     }).then(function(employee){
       if(callback){
