@@ -20,7 +20,14 @@ router.get('/', function(req, res, next) {
   Employee.findAll({
     order: [
       ["id", "desc"]
-    ]
+    ],
+    include: [{
+      model: Resume,
+      as: "NewestResume",
+      attributes: [
+        "createdAt"
+      ]
+    }]
   }).then(function(employees){
     res.render("index", {
       employees: employees

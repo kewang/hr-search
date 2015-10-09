@@ -19,5 +19,5 @@ block content
           td
             a(href="/employees/#{employee.id}")= employee.name
           td= employee.email
-          td= employee.newestResumeDate
+          td= employee.NewestResume.createdAt
           td= employee.likes
