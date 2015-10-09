@@ -8,6 +8,7 @@ var session = require('express-session');
 var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var moment = require('moment');
 
 var routes = require('./routes/index');
 var employees = require('./routes/employees');
@@ -31,6 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: 'hr-search'}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.locals.moment = moment;
 
 app.use('/', routes);
 app.use('/employees', employees);
