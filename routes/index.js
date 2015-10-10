@@ -51,9 +51,17 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
 
     var files = fs.readdirSync(directory);
 
+    console.log("Parse start");
+
     files.forEach(function(file){
-      storeEmailToDatabase(path.join(directory, file));
+      var p = path.join(directory, file);
+
+      console.log("Parse file: " + p);
+
+      storeEmailToDatabase(p);
     });
+
+    console.log("Parse end");
 
     res.redirect(req.headers.referer);
   }
