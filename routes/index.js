@@ -132,7 +132,7 @@ function storeEmailToDatabase(path, callback){
   mailparser.on("end", function(mail){
     var $ = cheerio.load(mail.html);
     var name = $("strong > a > span").text();
-    var email = $("tr:nth-child(6) > td:nth-child(2) > font > a").text();
+    var email = mail.html.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)[0];
     var content = $("body").html();
     var date = mail.date;
 
