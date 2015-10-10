@@ -19,5 +19,5 @@ block content
           td
             a(href="/employees/#{employee.id}")= employee.name
           td= employee.email
-          td= moment(employee.NewestResume.createdAt).format('YYYY/MM/DD hh:mm:ss')
+          td= moment(employee.NewestResume.createdAt).format('YYYY/MM/DD HH:mm:ss')
           td= employee.likes
