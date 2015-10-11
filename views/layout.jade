@@ -9,16 +9,18 @@ html
   body
     .container
       h1
-        a(href="/") HR Search
-      .pull-right
-        form.form-inline(action="/upload", method="post", enctype="multipart/form-data")
-          .form-group
-            input.btn(name="email", type="file")
-          .form-group
-            input.btn.btn-primary(type="submit", value="Upload")
+        a(href="/")
+          img(src="/images/logo.png")
+        small Find your best partner
       block content
       nav.navbar.navbar-default.navbar-fixed-bottom
         .container
-          block nav-content
+          form.form-inline(action="/upload", method="post", enctype="multipart/form-data")
+            .form-group
+              input.btn(name="email", type="file")
+            .form-group
+              input.btn.btn-primary(type="submit", value="Upload")
+
+            block nav-content
     script(src="/bower_components/jquery/jquery.min.js")
     script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")

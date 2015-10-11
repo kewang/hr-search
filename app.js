@@ -82,6 +82,8 @@ passport.use(new LocalStrategy(function(username, password, done) {
     if (!bcrypt.compareSync(password, user.password)) {
       return done(null, false, {message: 'Invalid username or password'});
     } else {
+      app.locals.isAuth = true;
+      
       return done(null, user);
     }
   });
