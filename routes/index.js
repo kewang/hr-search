@@ -72,6 +72,14 @@ router.post("/upload", upload.single("email"), function(req, res, next) {
   }
 });
 
+router.get("/logout", function(req, res, next) {
+  if(req.isAuthenticated()){
+    req.logout();
+
+    res.redirect(req.headers.referer);
+  }
+});
+
 router.get("/login", function(req, res, next) {
   res.render("login");
 });

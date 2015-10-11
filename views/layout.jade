@@ -7,6 +7,15 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     title= title
   body
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .pull-right
+          .btn-group(role="group", aria-label="...")
+            if isAuth
+              a.btn.btn-danger.navbar-btn(href="/logout") Logout
+            else
+              a.btn.btn-primary.navbar-btn(href="/login") Login
+              a.btn.btn-default.navbar-btn(href="/signup") Register
     .container
       h1
         a(href="/")
