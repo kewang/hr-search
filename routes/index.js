@@ -76,6 +76,8 @@ router.get("/logout", function(req, res, next) {
   if(req.isAuthenticated()){
     req.logout();
 
+    req.app.locals.isAuth = false;
+
     res.redirect(req.headers.referer);
   }
 });
