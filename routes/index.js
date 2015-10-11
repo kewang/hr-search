@@ -36,6 +36,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/upload", upload.single("email"), function(req, res, next) {
+  // Not upload file
+  if (!req.file) {
+    return res.redirect(req.headers.referer);
+  }
+
   var ext = req.file.originalname.slice(-4);
 
   if (ext === '.eml') {
