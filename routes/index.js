@@ -19,6 +19,7 @@ var User = models.User;
 router.get('/', function(req, res, next) {
   Employee.findAll({
     order: [
+      ["likes", "desc"],
       ["id", "desc"]
     ],
     include: [{
