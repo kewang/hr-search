@@ -147,7 +147,11 @@ function storeEmailToDatabase(path, callback){
 
   mailparser.on("end", function(mail){
     var $ = cheerio.load(mail.html);
-    var name = $("strong > a > span").text();
+    var src = $("img[src*=\"http://vip.104.com.tw/9/other/mail/img/icon_active\"]").parent().parent().parent();
+    var name = src.find("strong > a > span").text().trim();
+    var tmp = src.find("font").first().text().trim().split("　");
+    var age = tmp[0].replace("歲", "");
+    var gender = convertToGender(tmp[1]);
     var email = mail.html.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)[0];
     var content = $("body").html();
     var date = mail.date;
@@ -162,7 +166,9 @@ function storeEmailToDatabase(path, callback){
       }else{
         return Employee.create({
           name: name,
-          email: email
+          email: email,
+          age: age,
+          gender: gender
         });
       }
     }).then(function(employee){
@@ -186,6 +192,10 @@ function storeEmailToDatabase(path, callback){
   });
 
   fs.createReadStream(path).pipe(mailparser);
+}
+
+function convertToGender(tmpGender){
+  return (tmpGender.charAt(0) == "男") ? "male" : "female";
 }
 
 module.exports = router;

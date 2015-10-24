@@ -5,6 +5,8 @@ block content
     table.table
       tr
         th Name
+        th Age
+        th Gender
         th Email
         th Date
         th Like Counts
@@ -12,6 +14,8 @@ block content
         tr
           td
             a(href="/employees/#{employee.id}")= employee.name
+          td= employee.age
+          td= (employee.gender == "male") ? "男" : "女"
           td= employee.email
           td= moment(employee.NewestResume.createdAt).format('YYYY/MM/DD HH:mm:ss')
           td= employee.likes

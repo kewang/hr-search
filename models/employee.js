@@ -11,6 +11,22 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING
     },
+    gender: {
+      type: DataTypes.ENUM,
+      values: ["male", "female"]
+    },
+    age: {
+      type: DataTypes.INTEGER
+    },
+    highSalary: {
+      type: DataTypes.INTEGER
+    },
+    lowSalary: {
+      type: DataTypes.INTEGER
+    },
+    avatar: {
+      type: DataTypes.STRING
+    },
     likes: {
       type: DataTypes.INTEGER,
       defaultValue: 0
