@@ -152,6 +152,7 @@ function storeEmailToDatabase(path, callback){
     var tmp = src.find("font").first().text().trim().split("　");
     var age = tmp[0].replace("歲", "");
     var gender = convertToGender(tmp[1]);
+    var salary = convertToSalary($("font:contains('求 職 條 件')").parents("table").find("tr:nth-child(3)").find("tr:contains('希望待遇：')").find("td:nth-child(2)").text());
     var email = mail.html.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)[0];
     var content = $("body").html();
     var date = mail.date;
@@ -168,7 +169,9 @@ function storeEmailToDatabase(path, callback){
           name: name,
           email: email,
           age: age,
-          gender: gender
+          gender: gender,
+          lowSalary: salary[0],
+          highSalary: salary[1]
         });
       }
     }).then(function(employee){
@@ -196,6 +199,22 @@ function storeEmailToDatabase(path, callback){
 
 function convertToGender(tmpGender){
   return (tmpGender.charAt(0) == "男") ? "male" : "female";
+}
+
+function convertToSalary(tmpSalary){
+  var salary = [];
+
+  if(tmpSalary == "面議"){
+    salary = [-1, -1];
+  }else if(tmpSalary == "依公司規定") {
+    salary = [-2, -2];
+  }else{
+    tmpSalary = tmpSalary.replace(/元/g,"");
+    tmpSalary = tmpSalary.replace(/月薪/g,"");
+    salary = tmpSalary.trim().split("~");
+  }
+
+  return salary;
 }
 
 module.exports = router;

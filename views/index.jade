@@ -5,17 +5,27 @@ block content
     table.table
       tr
         th Name
+        th Email
         th Age
         th Gender
-        th Email
+        th Salary
         th Date
         th Like Counts
       each employee in employees
         tr
           td
             a(href="/employees/#{employee.id}")= employee.name
+          td= employee.email
           td= employee.age
           td= (employee.gender == "male") ? "男" : "女"
-          td= employee.email
+          td
+            if (employee.lowSalary == -1) && (employee.highSalary == -1)
+              | 面議
+            else if (employee.lowSalary == -2) && (employee.highSalary == -2)
+              | 依公司規定
+            else
+              = employee.lowSalary
+              | &nbsp;~&nbsp;
+              = employee.highSalary
           td= moment(employee.NewestResume.createdAt).format('YYYY/MM/DD HH:mm:ss')
           td= employee.likes
