@@ -1,4 +1,5 @@
 var express = require('express');
+var nodemailer = require('nodemailer');
 var router = express.Router();
 var passport = require("passport");
 var models = require("../models");
@@ -6,6 +7,18 @@ var Employee = models.Employee;
 var Resume = models.Resume;
 var Comment = models.Comment;
 var User = models.User;
+
+var transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'cpckewang@gmail.com',
+    pass: ''
+  }
+});
+
+var mailOptions = {
+  from: 'HR Search <foo@example.com>' // sender address
+};
 
 router.get("/:id", function(req, res, next) {
   Employee.findById(req.params.id).then(function(employee){
@@ -65,6 +78,20 @@ function createComment(req, res) {
   }).then(function(employee){
     return employee.increment("likes");
   }).then(function(employee){
+    if(req.body.sendto){
+      mailOptions.subject = "[HR Search] " + req.user.username + " 覺得這位不錯，提供給你參考看看";
+      mailOptions.to = req.body.sendto;
+      mailOptions.text = req.headers.referer;
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          console.log(error);
+        }else{
+          console.log('Message sent: ' + info.response);
+        }
+      });
+    }
+
     res.redirect(req.headers.referer);
   });
 }
